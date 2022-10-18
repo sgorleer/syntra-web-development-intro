@@ -1,22 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const arrayData = [];
+      const cities = [];
+      const states = [];
+      const formInput = document.querySelector(".search");
+      const suggestions = document.querySelector(".suggestions");
 
-  <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
-    <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
-    </ul>
-  </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+      const display = (e) => {
+        const matches = arrayData.filter(
+          (place) =>
+            place.state.includes(e.target.value) ||
+            place.city.includes(e.target.value)
+        );
+        const html = matches
+          .map((match) => {
+            return `<li>
+            <p>${match.city}, ${match.state}</p>
+            <p>${match.population}</p>
+            </li>`;
+          })
+          .join("");
+        suggestions.innerHTML = html;
+        console.log(html);
+      };
 
-</script>
-</body>
+      const promise = fetch(
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json"
+      );
+
+      promise
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          return data;
+        })
+        .then((data) => {
+          arrayData.push(...data);
+          for (const item of data) {
+            cities.push(item.city);
+          }
+          for (const item of data) {
+            states.push(item.state);
+          }
+        })
+        .catch(() => {
+          console.log("Err message");
+        });
+
+      formInput.addEventListener("input", display);
+
+      /*
+        input selecteren => addEventListener input
+        If string in array includes substring => add string to new array
+      */
+
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+    </script>
+  </body>
 </html>

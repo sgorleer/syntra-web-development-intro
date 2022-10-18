@@ -71,15 +71,93 @@
         "Biondo, Frank",
       ];
 
+      /*
+      Via arrowfunctie hebben we een implicit return,
+
       // 1. Filter the list of inventors for those who were born in the 1500's
+      /*
+      Map methode pakt een element en steekt het in nieuwe array => heeft altijd 3 argumenten nodig
+      Filter methode pakt een conditie om items uit een nieuwe array aan te maken
+      For each methode
+      Reduce methode
+      */
+      function bornin1500(inventor) {
+        if ((inventor.year >= 1500) & (inventor.year < 1600)) {
+          return true;
+        }
+      }
+
+      let filteredArray = inventors.filter(bornin1500);
+      console.log(filteredArray);
+
+      let filteredResult = inventors.filter((inventor) => {
+        if (inventor.year >= 1500 && inventor.year < 1600) {
+          return inventor;
+        }
+      });
+      console.log(filteredResult);
+
+      let filteredResult3 = inventors.filter(
+        (x) => x.year >= 1500 && x.year < 1600
+      );
+      console.log(filteredResult3);
 
       // 2. Give us an array of the inventors first and last names
+      const newNamesArray = inventors.map(
+        (item) => `${item.first} ${item.last}`
+      );
+
+      console.log(newNamesArray);
 
       // 3. Sort the inventors by birthdate, oldest to youngest
 
+      let sortedArray = inventors.sort((inventor1, inventor2) => {
+        if (inventor1.year > inventor2.year) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+
+      let sortedArray2 = inventors.sort((x, y) => x > y);
+      console.log(sortedArray);
+      console.log(sortedArray2);
+
       // 4. How many years did all the inventors live all together?
 
+      /* 
+      Reduce is een method op array
+      Verwacht een functie met 2 parameters (accumulator en current value) en een initial value
+      Accumulator is steeds een subtotaal, en op het einde is het het totaal.
+      */
+      let initialValue = 0;
+      let addedYears = inventors.reduce((totalValue, currentValue) => {
+        totalValue = totalValue + (currentValue.passed - currentValue.year);
+        return totalValue;
+      }, initialValue);
+
+      console.log(addedYears);
+
+      const addedYears2 = inventors.reduce((acc, cv) => {
+        cv = cv.passed - cv.year;
+        acc += cv;
+        return acc;
+      }, 0);
+
+      console.log(addedYears2);
+
       // 5. Sort the inventors by years lived
+      let sortedYearsLived = inventors.sort((inventor1, inventor2) => {
+        if (
+          inventor1.passed - inventor1.year >
+          inventor2.passed - inventor2.year
+        ) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      console.log(sortedYearsLived);
 
       // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
       // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris

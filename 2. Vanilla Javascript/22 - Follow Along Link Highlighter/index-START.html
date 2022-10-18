@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>👀👀👀Follow Along Nav</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <title>👀👀👀Follow Along Nav</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <nav>
       <ul class="menu">
         <li><a href="">Home</a></li>
@@ -18,16 +17,65 @@
     </nav>
 
     <div class="wrapper">
-      <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
-      <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
-      <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
-      <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
-      <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+      <p>
+        Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit.
+        Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati
+        distinctio, aut itaque, qui vitae!
+      </p>
+      <p>
+        Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque
+        praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate
+        consequuntur facilis ullam dignissimos, aperiam quam veniam.
+      </p>
+      <p>
+        Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime
+        <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit
+        recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.
+      </p>
+      <p>
+        Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni
+        odit <a href="">totam</a> ut consequatur eveniet sunt quam provident
+        sapiente dicta neque quod.
+      </p>
+      <p>
+        Aliquam <a href="">dicta</a> sequi culpa fugiat
+        <a href="">consequuntur</a> pariatur optio ad minima, maxime
+        <a href="">odio</a>, distinctio magni impedit tempore enim repellendus
+        <a href="">repudiandae</a> quas!
+      </p>
     </div>
 
-  <script>
-    // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
-  </script>
-</body>
-</html>
+    <script>
+      /*
+      1. Selecteer link tags
+      2. Create highlight element and give class .highlight
+      3. Attach event listener to all a tags for hover event
+      3.1. Get coordinates of a tag hovered
+      3.2. Get width of a tag
+      3.3. Apply new position highlight element
+      3.4. Apply width to highlight element
+      */
 
+      let tags = document.querySelectorAll("a");
+      let highlightElement = document.createElement("span");
+      highlightElement.classList.add("highlight");
+      document.body.appendChild(highlightElement);
+
+      function hoverFunc(e) {
+        e.preventDefault();
+        const coords = this.getBoundingClientRect();
+        const x = coords.left + window.scrollX;
+        const y = coords.top + window.scrollY;
+        let tagWidth = e.srcElement.offsetWidth;
+        let tagHeight = e.srcElement.offsetHeight;
+        highlightElement.style.width = `${tagWidth}px`;
+        highlightElement.style.height = `${tagHeight}px`;
+        highlightElement.style.position = "absolute";
+        highlightElement.style.left = `${x}px`;
+        highlightElement.style.top = `${y}px`;
+      }
+
+      tags.forEach((tag) => tag.addEventListener("mouseover", hoverFunc));
+    </script>
+  </body>
+</html>
