@@ -8,8 +8,6 @@
 //     resolve("success2");
 //   });
 
-const { words } = require("lodash");
-
 // const { random } = require("lodash");
 
 //   promise
@@ -224,27 +222,25 @@ let userScore = 0;
 
 const enterNumber = () => {
   return new Promise((resolve, reject) => {
-    const userInput = window.prompt("Enter a number");
+    const userInput = parseInt(window.prompt("Enter a number"));
     const randomNumber = Math.floor(Math.random() * 6 + 1);
     if (userInput === randomNumber) {
       userScore = userScore + 2;
-      resolve();
-    } else if (
-      userInput === randomNumber + 1 ||
-      userInput === randomNumber - 1
-    ) {
-      userScore = userScore + 1;
-      resolve();
-    } else {
-      resolve();
     }
+    if (userInput === randomNumber + 1 || userInput === randomNumber - 1) {
+      userScore = userScore + 1;
+    }
+    console.log(userInput);
+    console.log(randomNumber);
+    console.log(userScore);
+    resolve();
   });
 };
 
 const continueGame = () => {
   return new Promise((resolve, reject) => {
     const userQ = window.confirm("Do you want to continue?");
-    if (userQ === true) {
+    if (userQ) {
       resolve();
     } else {
       reject();
@@ -253,10 +249,16 @@ const continueGame = () => {
 };
 
 const handleGuess = () => {
-  enterNumber().then(() => {
-    console.log(`${userScore}`);
-    continueGame().then(() => {
-      handleGuess()});
-    }
-  };
-    
+  enterNumber()
+    .then(() => {
+      continueGame();
+    })
+    .then(() => {
+      handleGuess();
+    })
+    .catch(() => {
+      alert("You stopped");
+    });
+};
+
+handleGuess();

@@ -17,31 +17,83 @@
       //2. Create an API Key and add valid domain *
       //3. Store your public Api Key here
       const ts = 1;
-      const publicKey = "";
+      const publicKey = "668fdb5862105ef682bb1c47df8266e1";
       //4. Get the md5 hash of ts-privateKey-publicKey via here: https://www.md5hashgenerator.com/
-      const hash = "";
+      const hash = "a7322036243e4176e11026d73c48534a";
+      const heroes = document.querySelector(".heroes");
 
       //5. Create a function that takes in the thumbnail of a hero
       // and creates a path to the full image (see here: https://developer.marvel.com/documentation/images)
-      function getImage() {}
+      function getImage(thumbnail, extension) {
+        return `${thumbnail}/portrait_xlarge.${extension}`;
+      }
 
       //6. Write a function called render that
       // a. fetch to get all the heroes from the api and displays them on the page
       // b. Store those heroes in localStorage
       // c. Selects all the heroes rendered and attaches a click handler that alerts the comics
       function render() {
+        const promise = fetch(
+          `https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+        );
+        promise
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            localStorage.setItem("heroes", JSON.stringify(data.data.results));
+            return data.data.results;
+          })
+          .then((arr) => {
+            console.log(arr);
+            heroCards = arr.map((x) => cardFactory(x));
+            console.log(heroCards);
+            return heroCards;
+          })
+          .then((cards) => {
+            cards.forEach((x) => {
+              const heroesDiv = document.createElement("div");
+              heroesDiv.innerHTML = x;
+              heroes.appendChild(heroesDiv);
+            });
+          })
+          .then(() => {
+            const renderedHeroes = document.querySelectorAll(".hero");
+            renderedHeroes.forEach((x) => {
+              x.addEventListener("click", heroClicked);
+            });
+          });
         //https://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${publicKey}&hash=${hash}
       }
 
       //7. Use this factory to show the name and image of every hero you fetch
-      function cardFactory() {
+      function cardFactory(hero) {
         return `
-        <section class="hero" data-hero-id="1">
-          <img src="http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg" />
-          <span>Name</span>
+        <section class="hero" data-hero-id=${hero.id}>
+          <img src="${getImage(
+            hero.thumbnail.path,
+            hero.thumbnail.extension
+          )}" />
+          <span>${hero.name}</span>
+          <a href="detailpage.html?id=${hero.id}">Details</a>
         </section>
         `;
       }
+
+      function heroClicked(e) {
+        const heroesInStorage = JSON.parse(localStorage.getItem("heroes"));
+        const clickedHero = heroesInStorage.find(
+          (x) => x.id === parseInt(this.dataset.heroId)
+        );
+        /* this heeft hier altijd betrekking op volledig element waar je de functie aan hebt meegegeven */
+        const heroComics = clickedHero.comics.items;
+        const comicsArr = heroComics.map((x) => x.name);
+        alert(`${comicsArr.join(",")}`);
+      }
+
+      render();
+
+      /* Oefening verder maken, waarbij we ook serie laten zien door naar nieuwe pagina te gaan en API aan te spreken */
     </script>
   </body>
 </html>

@@ -17,10 +17,17 @@
       // DOCS: https://countapi.xyz/
       // 1. Count the number of times the button is clicked using the function below
 
+      const btn = document.getElementById("count");
+      const counter = document.getElementById("counter");
+      btn.addEventListener("click", () => clickedPromise());
+
       // 3. Promisify the following function
       function clicked() {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick");
+        xhr.open(
+          "GET",
+          "https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick"
+        );
         xhr.responseType = "json";
         xhr.onload = function () {
           //2. Set the count in the counter section
@@ -28,12 +35,49 @@
         };
         xhr.send();
       }
+
       // 3. Rewrite the function to use the fetch API
+
+      const clickedPromise = () => {
+        return fetch("https://api.countapi.xyz/hit/sam/awesomeclick")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            alert(`This button has been clicked ${data.value} times!`);
+            counter.innerHTML = `${data.value}`;
+            return data;
+          })
+          .catch((err) => {
+            console.log(err);
+            alert("Error");
+          });
+      };
 
       // 4. When the page loads, get the number of clicks already registered for your page
       // https://api.countapi.xyz/info/simontemmerman.com/awesomeclick
 
+      window.addEventListener("load", () => {
+        return fetch("https://api.countapi.xyz/info/sam/awesomeclick")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            alert(`In total the buton has been clicked ${data.value} times!`);
+            counter.innerHTML = `${data.value}`;
+            return data;
+          })
+          .catch((err) => {
+            alert("Error loading data");
+          });
+      });
+      /* Hier kan je natuurlijk ook gewoon dezelfde functie maken en de functie eenmaal callen.
+       */
+
       // 5. Promisify the initialClicks function
+
+      // 6. Implement the same thing with local storage
     </script>
   </body>
 </html>

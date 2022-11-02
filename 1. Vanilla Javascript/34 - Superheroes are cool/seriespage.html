@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Series details</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section class="heroes"></section>
+    <script>
+      const ts = 1;
+      const publicKey = "668fdb5862105ef682bb1c47df8266e1";
+      const hash = "a7322036243e4176e11026d73c48534a";
+      const heroes = document.querySelector(".heroes");
+
+      //net zoals bij details page hier id ophalen van de series waarop geklikt is.
+      //vervolgens gebruiken voor fetch in render functie.
+
+      const fullId = window.location.href;
+      const id = fullId.substring(fullId.indexOf("?") + 4);
+
+      function render() {
+        const promise = fetch(
+          `https://gateway.marvel.com/v1/public/series/${id}/comics?ts=${ts}&apikey=${publicKey}&hash=${hash}`
+        );
+        promise
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            localStorage.setItem("series", JSON.stringify(data.data.results));
+            return data.data.results;
+          })
+          .then((arr) => {
+            console.log(arr);
+            const comicTitles = arr.map((x) => cardFactory(x));
+            console.log(comicTitles);
+            return comicTitles;
+          })
+          .then((cards) => {
+            cards.forEach((x) => {
+              const comicsDiv = document.createElement("div");
+              comicsDiv.innerHTML = x;
+              heroes.appendChild(comicsDiv);
+            });
+          });
+      }
+
+      function cardFactory(comic) {
+        return `
+        <section class="hero" data-hero-id=${comic.id}>
+          <span>${comic.title}</span>
+        </section>
+        `;
+      }
+
+      // op deze pagina alle comics tonen binnen bepaalde series
+      render();
+    </script>
+  </body>
+</html>
