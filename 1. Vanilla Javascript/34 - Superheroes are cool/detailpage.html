@@ -17,26 +17,12 @@
       const hero = heroesInStorage.find((x) => x.id === parseInt(id));
       const heroSeries = hero.series.items;
       const seriesElements = heroSeries.map((x) => cardFactory(x));
-      //   const seriesArr = heroSeries.map((x) => x.name);
-      //   console.log(seriesArr);
-      //   const seriesSpans = seriesArr.map((x) => makeSpan(x));
 
       seriesElements.forEach((serie) => {
         const serieDiv = document.createElement("div");
         serieDiv.innerHTML = serie;
         heroesDiv.appendChild(serieDiv);
       });
-
-      // nog toevoegen: indien op detail link van series geklikt wordt, dan moet er een nieuwe pagina geopend worden waarin data van Marvel API wordt gehaald over series.
-
-      //   function makeSpan(series) {
-      //     return `
-      //     <section class="hero">
-      //     <span>${series}</span>
-      //     <a href="seriespage.html?id=${series}">Details</a>
-      //     </section>
-      //     `;
-      //   }
 
       function cardFactory(series) {
         const fullSeriesId = series.resourceURI;

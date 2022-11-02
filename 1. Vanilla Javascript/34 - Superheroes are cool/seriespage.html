@@ -15,9 +15,6 @@
       const hash = "a7322036243e4176e11026d73c48534a";
       const heroes = document.querySelector(".heroes");
 
-      //net zoals bij details page hier id ophalen van de series waarop geklikt is.
-      //vervolgens gebruiken voor fetch in render functie.
-
       const fullId = window.location.href;
       const id = fullId.substring(fullId.indexOf("?") + 4);
 
@@ -56,7 +53,6 @@
         `;
       }
 
-      // op deze pagina alle comics tonen binnen bepaalde series
       render();
     </script>
   </body>
