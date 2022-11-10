@@ -69,6 +69,7 @@
       //7. Use this factory to show the name and image of every hero you fetch
       function cardFactory(hero) {
         return `
+<<<<<<< HEAD
         <section class="hero" data-hero-id=${hero.id}>
           <img src="${getImage(
             hero.thumbnail.path,
@@ -76,10 +77,17 @@
           )}" />
           <span>${hero.name}</span>
           <a href="detailpage.html?id=${hero.id}">Details</a>
+=======
+        <section class="hero" data-hero-id="1">
+          <img src="http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg" />
+          <span>Name</span>
+          <a target="_blank" href="details-START.html?id=1">Details</a>
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
         </section>
         `;
       }
 
+<<<<<<< HEAD
       function heroClicked(e) {
         const heroesInStorage = JSON.parse(localStorage.getItem("heroes"));
         const clickedHero = heroesInStorage.find(
@@ -94,6 +102,11 @@
       render();
 
       /* Oefening verder maken, waarbij we ook serie laten zien door naar nieuwe pagina te gaan en API aan te spreken */
+=======
+      //8. Create a second HTML page that shows the details of a hero
+      // use localStorage to store the results of a hero (effectivly creating a cache to minimize requests to the API). The
+      // second time the hero page is opened, go to localStorage instead of the API.
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
     </script>
   </body>
 </html>

@@ -16,6 +16,10 @@
     <script>
       // DOCS: https://countapi.xyz/
       // 1. Count the number of times the button is clicked using the function below
+      const counter = document.querySelector("#counter");
+      const count = document.querySelector("#count");
+
+      count.addEventListener("click", () => clickedFetch());
 
       const btn = document.getElementById("count");
       const counter = document.getElementById("counter");
@@ -30,13 +34,36 @@
         );
         xhr.responseType = "json";
         xhr.onload = function () {
-          //2. Set the count in the counter section
-          alert(`This button has been clicked ${this.response.value} times!`);
+          //2. Set the count in the counter section || xhr.response
+          counter.innerHTML = xhr.response.value;
         };
         xhr.send();
       }
 
+<<<<<<< HEAD
+=======
+      function clickedPromisify() {
+        return new Promise((resolve, reject) => {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick");
+          xhr.responseType = "json";
+          xhr.onload = function () {
+            //2. Set the count in the counter section || xhr.response
+            resolve(xhr.response.value);
+          };
+          xhr.onerror = reject;
+          xhr.send();
+        });
+      }
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
       // 3. Rewrite the function to use the fetch API
+      function clickedFetch() {
+        return fetch("https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick")
+          .then((res) => res.json())
+          .then((res) => {
+            counter.innerHTML = res.value;
+          });
+      }
 
       const clickedPromise = () => {
         return fetch("https://api.countapi.xyz/hit/sam/awesomeclick")
@@ -57,7 +84,17 @@
 
       // 4. When the page loads, get the number of clicks already registered for your page
       // https://api.countapi.xyz/info/simontemmerman.com/awesomeclick
+      function initialClicks() {
+        return fetch("https://api.countapi.xyz/info/simontemmerman.com/awesomeclick")
+          .then((res) => res.json())
+          .then((res) => {
+            counter.innerHTML = res.value;
+          });
+      }
 
+      initialClicks();
+
+<<<<<<< HEAD
       window.addEventListener("load", () => {
         return fetch("https://api.countapi.xyz/info/sam/awesomeclick")
           .then((response) => {
@@ -78,6 +115,17 @@
       // 5. Promisify the initialClicks function
 
       // 6. Implement the same thing with local storage
+=======
+      // 6. Implement the same thing with local storage
+      function localClicked() {
+        fetch("https://api.countapi.xyz/hit/simontemmerman.com/awesomeclick")
+          .then((res) => res.json())
+          .then((res) => {
+            localStorage.getItem("count", res.value);
+            counter.innerHTML = res.value;
+          });
+      }
+>>>>>>> d831ff21722a6ea259bad666befaf0481b9a8ca2
     </script>
   </body>
 </html>
