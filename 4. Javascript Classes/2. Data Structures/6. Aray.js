@@ -2,7 +2,7 @@
 
 class Aray {
   constructor() {
-    this.storage = "";
+    this.#storage = "";
   }
   /*
    * Pushes a value at the end of the aray
