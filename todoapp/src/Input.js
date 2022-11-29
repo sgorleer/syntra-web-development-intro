@@ -12,7 +12,7 @@ const Input = ({ todos, setTodos }) => {
     setInput("");
   }
 
-  // we maken hier een controlled input van => we geven value mee aan ons inputveld
+  // we maken hier een controlled input van => we geven value mee aan ons inputveld. Op die manier kunnen we het ook weer zelf aanpassen met setInput
   return (
     <>
       <input

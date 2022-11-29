@@ -28,5 +28,4 @@ function Todo({ todo, todos, setTodos, text }) {
   );
 }
 
-// check toevoegen in classname aan de hand van curly brackets en dan check doen if completed dan strikethrough, if not completed dan geen aanpassing van style.
 export default Todo;
