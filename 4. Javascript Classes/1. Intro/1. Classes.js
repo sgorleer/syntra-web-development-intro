@@ -5,6 +5,58 @@ console.log("~~~~~~~~~~~~~~TASK 1~~~~~~~~~~~~~~");
  * Some examples: furniture, animal, chair, teacher, student, person, tree, movie,...
  */
 
+class House {
+  constructor(color, depth, width, height) {
+    this.color = color;
+    this.depth = depth;
+    this.width = width;
+    this.height = height;
+  }
+
+  changeColor(newColor) {
+    console.log("Changed color to: " + newColor);
+    this.color = newColor;
+  }
+
+  get area() {
+    return this.width * this.depth;
+  }
+}
+
+class Dog {
+  constructor(breed, color) {
+    this.breed = breed;
+    this.color = color;
+    this.bark = "Woef woef";
+  }
+
+  bark() {
+    return this.bark;
+  }
+
+  changeBark(newBark) {
+    this.bark = newBark;
+  }
+}
+
+class HerderDog extends Dog {
+  constructor(breed, color) {
+    this.breed = breed;
+    this.color = color;
+    super(breed, color);
+  }
+
+  bark() {
+    console.log("Woof, woof" + animal);
+  }
+
+  herd() {
+    console.log("herd");
+  }
+}
+
+const corgi = new HerderDog(corgi, black);
+
 console.log("~~~~~~~~~~~~~~TASK 2~~~~~~~~~~~~~~");
 /**
  * Initialize all those classes you defined above using the new keyword.
@@ -43,4 +95,69 @@ console.log("~~~~~~~~~~~~~~TASK 6~~~~~~~~~~~~~~");
     .square()
     .display();
  */
-class Calculator {}
+class Calculator {
+  constructor() {
+    this.total = 0;
+  }
+
+  add(number) {
+    this.total += number;
+    return this;
+  }
+
+  subtract(number) {
+    this.total -= number;
+    return this;
+  }
+
+  multiply(number) {
+    this.total = this.total * number;
+    return this;
+  }
+
+  divide(number) {
+    this.total = this.total / number;
+    return this;
+  }
+
+  get display() {
+    return this.total;
+  }
+}
+
+class Stack {
+  #stack;
+  constructor() {
+    this.#stack = [];
+  }
+
+  push(number) {
+    this.#stack.push(number);
+    return this;
+  }
+
+  pull() {
+    return this.#stack[this.#stack.length - 1];
+  }
+}
+
+class Queue {
+  #queue;
+  constructor() {
+    this.#queue = [];
+  }
+
+  enqueue(x) {
+    this.#queue.push(x);
+    return this;
+  }
+
+  dequeue() {
+    return this.#queue.shift();
+  }
+
+  peek() {
+    const firstElement = this.#queue[0];
+    return firstElement;
+  }
+}

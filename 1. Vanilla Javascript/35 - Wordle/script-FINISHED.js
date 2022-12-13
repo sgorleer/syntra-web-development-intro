@@ -27,7 +27,8 @@ async function init() {
       current = currentGuess.substring(0, currentGuess.length - 1) + letter;
     }
 
-    letters[currentRow * ANSWER_LENGTH + currentGuess.length - 1].innerText = letter;
+    letters[currentRow * ANSWER_LENGTH + currentGuess.length - 1].innerText =
+      letter;
   }
 
   // use tries to enter a guess
@@ -115,7 +116,10 @@ async function init() {
       letters[currentRow * ANSWER_LENGTH + i].classList.remove("invalid");
 
       // long enough for the browser to repaint without the "invalid class" so we can then add it again
-      setTimeout(() => letters[currentRow * ANSWER_LENGTH + i].classList.add("invalid"), 10);
+      setTimeout(
+        () => letters[currentRow * ANSWER_LENGTH + i].classList.add("invalid"),
+        10
+      );
     }
   }
 

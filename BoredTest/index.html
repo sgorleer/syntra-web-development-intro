@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bored API Test</title>
+  </head>
+  <body>
+    <button class="button" data-button="activity-generator">
+      Generate random activity
+    </button>
+    <div class="activity-container"></div>
+    <script>
+      console.log("Bored app launched");
+
+      const btn = document.querySelector(".button");
+      const container = document.querySelector(".activity-container");
+      const activityBtn = document.querySelector(".activity-button");
+
+      const activitiesArray = [];
+
+      async function getData() {
+        const data = fetch("https://www.boredapi.com/api/activity/");
+        return data;
+      }
+
+      async function display(e) {
+        const fetchedData = await getData();
+        const parsedData = await fetchedData.json();
+        activitiesArray.push(parsedData);
+        const storedActivities = JSON.parse(localStorage.getItem("activities"));
+        localStorage.setItem("activities", JSON.stringify(activitiesArray));
+        const activity = `<section class="activity" data-key="${parsedData.key}" data-activity="${parsedData.activity}"><span>${parsedData.activity}</span>
+        </section>`;
+        const div = document.createElement("div");
+        div.innerHTML = activity;
+        container.appendChild(div);
+        renderedActivities = document.querySelectorAll(".activity");
+        renderedActivities.forEach((x) => {
+          x.addEventListener("click", activityClicked);
+        });
+      }
+
+      function activityClicked() {
+        console.log(this);
+        console.log(this.dataset.activity);
+        const storedActivities = JSON.parse(localStorage.getItem("activities"));
+        console.log(storedActivities);
+        const clickedActivity = storedActivities.find(
+          (activity) => activity.activity === this.dataset.activity
+        );
+        console.log(clickedActivity);
+        alert(clickedActivity.participants);
+      }
+
+      btn.addEventListener("click", display);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions">
+        <li>Filter for a city</li>
+        <li>or a state</li>
+      </ul>
+    </form>
+    <script>
+      const inputField = document.querySelector(".search");
+      const suggestions = document.querySelector(".suggestions");
+
+      async function getData() {
+        const data = fetch(
+          "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json"
+        );
+        return data;
+      }
+
+      async function draw(e) {
+        const fetchedData = await getData();
+        const parsedData = await fetchedData.json();
+        const matches = parsedData.filter(
+          (place) =>
+            place.state.includes(e.target.value) ||
+            place.city.includes(e.target.value)
+        );
+        const html = matches.map((match) => {
+          return `<li>
+            <p>${match.city}</p>
+            </li>`;
+        });
+        // door die join maken we het een lange string
+        suggestions.innerHTML = html;
+      }
+
+      inputField.addEventListener("input", draw);
+    </script>
+  </body>
+</html>

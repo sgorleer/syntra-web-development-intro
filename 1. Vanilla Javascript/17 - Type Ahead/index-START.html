@@ -26,6 +26,7 @@
             place.state.includes(e.target.value) ||
             place.city.includes(e.target.value)
         );
+        console.log(matches);
         const html = matches
           .map((match) => {
             return `<li>
@@ -34,8 +35,8 @@
             </li>`;
           })
           .join("");
+        // door die join maken we het een lange string
         suggestions.innerHTML = html;
-        console.log(html);
       };
 
       const promise = fetch(
@@ -51,6 +52,7 @@
         })
         .then((data) => {
           arrayData.push(...data);
+          console.log(arrayData);
           for (const item of data) {
             cities.push(item.city);
           }

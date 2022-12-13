@@ -13,6 +13,8 @@ const waitForMove = (element, transform) =>
     5. The user can play the game as long as they want to
  */
 
+let userScore = 0;
+
 const enterNumber = () => {
   return new Promise((resolve, reject) => {
     const userInput = parseInt(prompt("Enter a number (1 - 6)"));

@@ -1,6 +1,18 @@
 class LibrarySection {
+  #books;
   constructor() {
-    this._books;
+    this.#books = [
+      {
+        title: "50 Shades of Grey",
+        author: "Vertonghen",
+        ISBN: 12345,
+        inStock: 20,
+        bookPlacement: "Drama/200/1",
+        borrow: 0,
+        url: "https://img.fruugo.com/product/4/85/75541854_max.jpg",
+        desc: "This is a book about 50 shades of grey",
+      },
+    ];
   }
 
   search(type, term) {
