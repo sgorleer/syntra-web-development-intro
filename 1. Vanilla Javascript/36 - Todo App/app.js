@@ -37,7 +37,7 @@ function addTodo(e) {
     .add(todo)
     .then(() => renderTodoItem(todo))
     .catch((err) => alert(err))
-    // clear input after save is succesfull
+    // clear input after save is succesful
     .finally(() => (todoInput.value = ""));
 }
 

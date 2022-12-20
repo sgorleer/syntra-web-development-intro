@@ -17,6 +17,14 @@ class LocalStorage {
     this.storage = window.localStorage;
   }
 
+  #getFromLocalStorage(key) {
+    let value = window.localStorage.getItem(key);
+    try {
+      value = JSON.parse(value);
+    } catch (err) {}
+    return value;
+  }
+
   set(key, value) {
     if (typeof value === Object || typeof value === Array) {
       this.storage.setItem(key, JSON.stringify(value));
@@ -25,8 +33,8 @@ class LocalStorage {
     }
   }
 
-  get(key) {
-    return this.storage.getItem(key);
+  get(keys) {
+    return Object.entries(keys).reduce((values, [key, value]) => {}, {});
   }
 
   remove(key) {
@@ -39,3 +47,5 @@ class LocalStorage {
 
   getAll() {}
 }
+
+window.LocalStorage = LocalStorage;
