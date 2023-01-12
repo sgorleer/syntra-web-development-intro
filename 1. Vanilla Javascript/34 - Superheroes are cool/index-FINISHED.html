@@ -50,6 +50,7 @@
           .then((res) => res.json())
           .then((res) => res.data.results)
           .then((res) => {
+            console.log(res);
             localStorage.setItem("heroes", JSON.stringify(res));
             return res;
           })

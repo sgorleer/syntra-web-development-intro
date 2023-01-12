@@ -1,0 +1,66 @@
+import "./styles.css";
+import { useState, useReducer } from "react";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "changeValue":
+      return { ...state, current: parseInt(action.value) };
+    case "sum":
+      return { ...state, result: state.result + state.current };
+    case "subtract":
+      return { ...state, result: state.result - state.current };
+    case "multiply":
+      return { ...state, result: state.result * state.current };
+    case "divide":
+      return { ...state, result: state.result / state.current };
+    case "reset":
+      return { ...state, result: 0 };
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  result: 0,
+  current: 0,
+};
+
+export default function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div className="App">
+      <div>
+        Entered number: <b> {state.current} </b>
+      </div>
+      <input
+        type="number"
+        value={state.current}
+        onChange={(e) =>
+          dispatch({ type: "changeValue", value: e.target.value })
+        }
+      ></input>
+      <button onClick={() => dispatch({ type: "sum", value: state.current })}>
+        +
+      </button>
+      <button
+        onClick={() => dispatch({ type: "subtract", value: state.current })}
+      >
+        -
+      </button>
+      <button
+        onClick={() => dispatch({ type: "multiply", value: state.current })}
+      >
+        *
+      </button>
+      <button
+        onClick={() => dispatch({ type: "divide", value: state.current })}
+      >
+        /
+      </button>
+      <button onClick={() => dispatch({ type: "reset" })}>RESET</button>
+      <div>
+        Result: <b>{state.result}</b>
+      </div>
+    </div>
+  );
+}
