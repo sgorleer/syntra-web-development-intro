@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-
 const themes = {
   light: {
     foreground: "#000000",
@@ -10,7 +9,7 @@ const themes = {
   dark: {
     foreground: "#ffffff",
     background: "#222222",
-    color: "white",
+    color: "dark",
   },
 };
 
